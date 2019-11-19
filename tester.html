@@ -1,0 +1,52 @@
+<!doctype html>
+<head>
+    <script src="https://cdn.anychart.com/releases/8.7.0/js/anychart-base.min.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.0/js/anychart-core.min.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.0/js/anychart-map.min.js" type="text/javascript"></script> <!-- used to make the map chart -->
+    <script src="https://cdn.anychart.com/geodata/2.0.0/custom/world/world.js"></script> <!-- provides information for the map -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js" data-export="true"></script> <!-- projection, allows us to use coordinates-->
+    <script>
+      anychart.onDocumentLoad(function () {
+        // create instance of a map chart 
+        var chart = anychart.map();
+        // set the data
+        // chart.data([
+        //   ["Chocolate", 5],
+        //   ["Rhubarb compote", 2],
+        //   ["Crêpe Suzette", 2],
+        //   ["American blueberry", 2],
+        //   ["Buttermilk", 1]
+        // ]);
+
+        var data = [    
+          {points: [49.15, 23.03, 51.24, 22.55, 50.28, 21.45, 50.08, 14.44, 48.14, 11.56], name: "BB"},
+          {points: []}
+        ];
+
+        let series = chart.connector(data);
+        series.curvature(0);
+        series.markers({position: '100%', size: 3, type: 'circle'});
+        series.hovered().markers({position: '100%', size: 3, type: 'circle'});
+
+        chart.geoData('anychart.maps.world');
+
+
+         // listen to the click
+        chart.title().listen("click", function () {
+          // Zoom map in 2 times.
+          chart.zoom(2);
+        });
+
+        // set chart title
+        chart.title("Top 5 pancake fillings");
+        // set the container element 
+        chart.container("container");
+        // initiate chart display
+        chart.draw();
+      });
+    </script>
+</head>
+<body>
+    <div id="container" style="width: 100%; height: 600px;"></div>
+</body>
+</html>
