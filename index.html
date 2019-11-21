@@ -42,7 +42,9 @@
             // let plot = connetor.lines
 
         var lines2 = [    
-          {points: [49.15, 23.03, 51.24, 22.55, 50.28, 21.45, 50.08, 14.44, 48.14, 11.56], name: "BB"},
+          {points: [40.71, -74.01, 49.15, 23.03]},
+          {points: [49.15, 23.03, 51.24, 22.55]},
+          {points: [51.24, 22.55, 50.08, 14.44]},
           {points: []}
         ];
         
@@ -50,7 +52,7 @@
         var series = map.connector(lines);
         var series2 = map.connector(lines2);
         series.curvature(0.4);
-        series.fill("#ef6c00", 1);
+        series.stroke("2 red");
         // series.normal().fill("#fffffff");
         series.startSize(2);
         series.endSize(2);
@@ -58,6 +60,7 @@
         series.hovered().markers({position: '100%', size: 3, type: 'circle'});
         series2.curvature(0.4);
         series2.startSize(2);
+        series2.stroke("2, green");
         series2.endSize(2);
         series2.markers({position: '100%', size: 3, type: 'circle'});
         series2.hovered().markers({position: '100%', size: 3, type: 'circle'});
@@ -72,7 +75,7 @@
                     .enabled(true)
                     .useHtml(true)
                     .padding([10, 0, 10, 0])
-                    .text('Fortunoff Archive Timelines<br/>' +
+                    .text('Fortunoff Archive Project<br/>' +
                             '<span  style="color:#929292; font-size: 12px;">(By: Patrycja Gorska, Zach Stanik, Ivy Fan, Justin Aubin)</span>');
     
             map.geoData('anychart.maps.world');
