@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ArcGIS JavaScript Tutorials: Display point, line, and polygon graphics</title>
+<style>
+  html, body, #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+<script src="https://js.arcgis.com/4.13/"></script>
+  
+  <script>
+require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+    ], function(Map, MapView, Graphic, GraphicsLayer) {
+  
+  var map = new Map({
+    basemap: "topo-vector"
+  });
+    
+  var view = new MapView({
+    container: "viewDiv",  
+    map: map,
+    center: [21.0122, 52.2297],
+    zoom: 4
+  });
+  
+  var graphicsLayer = new GraphicsLayer();
+  map.add(graphicsLayer);  
+  
+  // Create a line geometry
+  var simpleLineSymbol = {
+     type: "simple-line",
+     color: [226, 119, 40], // orange
+     width: 2
+   };
+
+
+//    for (i = 0; i < arr.length; i++) {
+
+//    }
+
+   var paths2 = [];
+   paths2.push([21.0122, 52.2297]);
+   paths2.push([-0.1180, 51.510]);
+   paths2.push([2.3522, 48.8566]);
+//    console.log(paths2);
+   var polyline = {
+     type: "polyline",
+     paths: paths2
+    //  paths: [
+    //     [21.0122, 52.2297],
+    //     [-0.1180, 51.510]
+    //  ]
+   };
+//    polyline.paths.push([2.3522, 48.8566]);
+
+//    var path2 = [12.4964, 41.9028];
+//    polyline.paths.add(path2);
+
+   var polylineGraphic = new Graphic({
+     geometry: polyline,
+     symbol: simpleLineSymbol
+   })
+
+   graphicsLayer.add(polylineGraphic);
+
+
+});</script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html> 
