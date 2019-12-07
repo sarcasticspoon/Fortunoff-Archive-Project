@@ -33,45 +33,67 @@ require([
     zoom: 4
   });
   
-  var graphicsLayer = new GraphicsLayer();
-  map.add(graphicsLayer);  
+//   var graphicsLayer = new GraphicsLayer();
+//   map.add(graphicsLayer);  
   
-  // Create a line geometry
-  var simpleLineSymbol = {
-     type: "simple-line",
-     color: [226, 119, 40], // orange
-     width: 2
-   };
+//   // Create a line geometry
+//   var simpleLineSymbol = {
+//      type: "simple-line",
+//      color: [226, 119, 40], // orange
+//      width: 2
+//    };
+
+   let arr = [
+       [[21.0122, 52.2297],
+        [-0.1180, 51.510],
+        [2.3522, 48.8566],
+        [71.4704, 51.1605]],
+       [[18.4241, -33.9249],
+        [-6.8498, 33.9716],
+        [-74.0060, 40.7128],
+        [-87.6298, 41.8781]],
+       [[2.1734, 41.3851],
+        [31.2357, 30.044],
+        [77.2090, 28.6139]],
+       [[-99.1332, 19.4326],
+        [-79.5199, 8.9824],
+        [-77.0428, -12.0464]]
+   ];
+
+   let graphicsLayer = new GraphicsLayer();
+   map.add(graphicsLayer);  
 
 
-//    for (i = 0; i < arr.length; i++) {
+   for (let i = 0; i < arr.length; i++) {
+        
+        // Random colors
+        let red = 255 * Math.random();
+        let green = 255 * Math.random();
+        let blue = 255 * Math.random();
 
-//    }
+        // Create a line geometry
+        let simpleLineSymbol = {
+            type: "simple-line",
+            color: [red, green, blue], // orange
+            width: 2
+        };
+        let linePaths = [];
+        let len = arr[i].length;
+        for (let j = 0; j < len; j++) {
+            linePaths.push(arr[i][j]);
+        }
+        let polyline = {
+            type: "polyline",
+            paths: linePaths
+        };
 
-   var paths2 = [];
-   paths2.push([21.0122, 52.2297]);
-   paths2.push([-0.1180, 51.510]);
-   paths2.push([2.3522, 48.8566]);
-//    console.log(paths2);
-   var polyline = {
-     type: "polyline",
-     paths: paths2
-    //  paths: [
-    //     [21.0122, 52.2297],
-    //     [-0.1180, 51.510]
-    //  ]
-   };
-//    polyline.paths.push([2.3522, 48.8566]);
+        let polylineGraphic = new Graphic({
+            geometry: polyline,
+            symbol: simpleLineSymbol
+        })
 
-//    var path2 = [12.4964, 41.9028];
-//    polyline.paths.add(path2);
-
-   var polylineGraphic = new Graphic({
-     geometry: polyline,
-     symbol: simpleLineSymbol
-   })
-
-   graphicsLayer.add(polylineGraphic);
+        graphicsLayer.add(polylineGraphic);
+    }
 
 
 });</script>
