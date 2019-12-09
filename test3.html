@@ -29,6 +29,8 @@
         "esri/Map",
         "esri/views/MapView",
         "esri/layers/FeatureLayer",
+        "esri/widgets/Popup",
+        "esri/PopupTemplate",
         "dojo/domReady!"
       ],
       function(
@@ -69,13 +71,9 @@
                 width: 3,
             };
 
-            let lineRenderer = {
-                type: "simple",
-                symbol: sym,
-            };
-
             // create individual line paths
             let geo = {
+                symbol: sym,
                 geometry: {
                     type: "polyline",
                     paths: arr[i]
@@ -83,6 +81,10 @@
 
             features.push(geo);
 
+            let popup = {
+                title: "This a their name: {NAME}",
+                content: "This is the info"
+            };
 
             let lineLyr = new FeatureLayer({
                 source: features,
@@ -90,7 +92,7 @@
                 objectIdField: "ObjectID",
                 spatialReference: { wkid: 4326 },
                 geometryType: "polyline",
-                renderer: lineRenderer
+                popupTemplate: popup
             });
 
             layers.push(lineLyr);
