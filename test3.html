@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Visualize features by type - 4.5</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.5/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.5"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* .esri-legend {
+      background-color: black;
+      color: white;
+    } */
+  </style>
+
+  <script>
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView, FeatureLayer
+      ) {
+
+        let arr = [
+            [[21.0122, 52.2297],
+                [-0.1180, 51.510],
+                [2.3522, 48.8566],
+                [71.4704, 51.1605]],
+            [[18.4241, -33.9249],
+                [-6.8498, 33.9716],
+                [-74.0060, 40.7128],
+                [-87.6298, 41.8781]],
+            [[2.1734, 41.3851],
+                [31.2357, 30.044],
+                [77.2090, 28.6139]],
+            [[-99.1332, 19.4326],
+                [-79.5199, 8.9824],
+                [-77.0428, -12.0464]]
+        ];
+
+        let layers = [];
+
+        for (let i = 0; i < arr.length; i++) {
+
+            let features = [];
+
+            // Random colors
+            let red = 255 * Math.random();
+            let green = 255 * Math.random();
+            let blue = 255 * Math.random();
+
+            let sym = {
+                type: "simple-line", 
+                color: [red, green, blue],
+                width: 3,
+            };
+
+            let lineRenderer = {
+                type: "simple",
+                symbol: sym,
+            };
+
+            // create individual line paths
+            let geo = {
+                geometry: {
+                    type: "polyline",
+                    paths: arr[i]
+                }};
+
+            features.push(geo);
+
+
+            let lineLyr = new FeatureLayer({
+                source: features,
+                fields: [],
+                objectIdField: "ObjectID",
+                spatialReference: { wkid: 4326 },
+                geometryType: "polyline",
+                renderer: lineRenderer
+            });
+
+            layers.push(lineLyr);
+        }
+
+        // Add the layer to the map
+        let map = new Map({
+          basemap: "topo-vector",
+          layers: layers
+        });
+
+        let view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [21.0122, 52.2297],
+          zoom: 4
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
+
