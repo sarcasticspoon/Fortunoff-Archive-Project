@@ -13,6 +13,8 @@ npm install
 ```
 
 After acquiring the ```.mrc``` and ```.csv``` data files, rename them ```fortunoff.mrc``` and ```path_data.csv```, respectively. Places these files into a folder named ```data```.
+Sample path data available here
+https://docs.google.com/spreadsheets/d/1BdhQ04tYE5m2QmQXM2G1Oxm4L89jjgkSE7C__Wb7C-c/edit?usp=sharing 
 
 Run
 ```Python ./scripts/database.py```
