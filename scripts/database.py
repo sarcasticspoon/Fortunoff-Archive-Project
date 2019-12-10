@@ -4,6 +4,14 @@ import sqlite3, csv
 with sqlite3.connect("fortunoff.db") as con:
     cur = con.cursor()
 
+    cur.execute("CREATE TABLE testimonies(title TEXT, summary TEXT)")
+    cur.execute("CREATE TABLE agents(id INTEGER, first_name TEXT, last_name TEXT, PRIMARY KEY (id, first_name, last_name)) WITHOUT ROWID")
+    cur.execute("CREATE TABLE entities(id INTEGER, name TEXT, PRIMARY KEY (id, name)) WITHOUT ROWID")
+    cur.execute("CREATE TABLE subjects(id INTEGER, name TEXT, PRIMARY KEY (id, name)) WITHOUT ROWID")
+    cur.execute("CREATE TABLE places(name TEXT, latitude REAL, longitude REAL)")
+    cur.execute("CREATE TABLE paths(id INTEGER, path_index INTEGER, place_id INTEGER, PRIMARY KEY (id, path_index)) WITHOUT ROWID")
+    con.commit()
+
     with open('data/fortunoff.mrc', 'rb') as fh:
         reader = MARCReader(fh)
         for record in reader:
