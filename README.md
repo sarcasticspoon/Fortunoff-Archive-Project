@@ -12,4 +12,18 @@ Install npm packages:
 npm install
 ```
 
-After acquiring the ```.mrc``` and ```.csv``` data files, rename them ```
+After acquiring the ```.mrc``` and ```.csv``` data files, rename them ```fortunoff.mrc``` and ```path_data.csv```, respectively. Places these files into a folder named ```data```.
+
+Run
+```Python ./scripts/database.py```
+to create the database file, create the necessary tables, and populate the database with data from the .mrc file.
+
+Next, run
+```Python ./scripts/csvData.py```
+to populate the database with the places and paths data from the .csv file.
+
+The ```resetdb.py``` script is also available to delete all data from the database while maintaining the overall schema.
+
+Run
+```node server```
+and direct your browser to ```http://localhost:8080/``` to view the web application
