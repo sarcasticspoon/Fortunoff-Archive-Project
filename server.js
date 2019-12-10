@@ -1,4 +1,3 @@
-// Most of the authentication code is copied from the example provided from Shea Ketsdever
 let express = require('express');
 let sqlite3 = require('sqlite3').verbose();
 let app = express();
