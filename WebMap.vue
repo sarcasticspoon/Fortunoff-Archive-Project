@@ -45,51 +45,69 @@ export default {
   }, 
   mounted() {
     // lazy load the required ArcGIS API for JavaScript modules and CSS
-    loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic', 'esri/layers/FeatureLayer'], { css: true })
-    .then(([ArcGISMap, MapView, FeatureLayer]) => {
-        let fLayer = new FeatureLayer();
-        // this.getPaths();
-
-        let polyAtt = {
-            Name: "tester123"
-        };
-        let simpleLineSymbol = {
-            type: "simple-line",
-            color: "red"
-        };
+    loadModules(['esri/Map', 'esri/views/MapView', 'esri/layers/GraphicsLayer', 'esri/Graphic', 'esri/layers/FeatureLayer'], {css: true})
+    .then(([Map, MapView, GraphicsLayer, FeatureLayer]) => {
+        // let features = [];
+        let farArray = [];
 
         var paths2 = [];
-            paths2.push([21.0122, 52.2297]);
-            paths2.push([-0.1180, 51.510]);
-            paths2.push([2.3522, 48.8566]);
+        paths2.push([21.0122, 52.2297]);
+        paths2.push([-0.1180, 51.510]);
+        paths2.push([2.3522, 48.8566]); 
 
-        let polyline = {
-            type : "polyline",
-            paths: paths2
+        // Random colors
+        let red = 255 * Math.random();
+        let green = 255 * Math.random();
+        let blue = 255 * Math.random();
+
+        let sym = {
+            type: "simple-line", 
+            color: [red, green, blue],
+            width: 3,
         };
 
-        let polylineGraphic = new Graphic({
-            geometry: polyline,
-            symbol: simpleLineSymbol,
-            attributes: polyAtt
+        // create individual line paths
+        let geo = {
+            symbol: sym,
+            geometry: {
+                type: "polyline",
+                paths: paths2},
+            attributes: {
+                birthday: "December"
+            }
+        };
+
+        let gLayer = new GraphicsLayer();
+        gLayer.add(geo);
+
+        var rendyBoy = {
+            type: "simple",  // autocasts as new SimpleRenderer()
+            symbol: sym
+        };
+    
+        farArray.push(geo);
+        const fLayer = new FeatureLayer({
+            source: farArray,
+            objectIdField: "birthday",
+            fields: [ 
+                {name: "birthday",
+                type: "string" }
+            ],
+            renderer: rendyBoy,
+            geometryType : "polyline"
         });
 
-        let map = new ArcGISMap({
+        let map = new Map({
             basemap: 'dark-gray-vector'
-         });
+        });
 
-        // map.basemap = 'topo-vector';
-
-        // // let fLayer = new FeatureLayer();
-
-        // let gLayer = new GraphicLayer();
-     
         map.add(fLayer);
+        map.add(gLayer);
         
       this.view = new MapView({
         container: this.$el,
         map: map,
-        center: [-118, 34],
+        center: [21.0122, 52.2297],
         zoom: 8
       });
     });
