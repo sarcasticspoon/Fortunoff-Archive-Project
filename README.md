@@ -1,37 +1,29 @@
-# Fortunoff-Archive-Project Installation Instructions
+# ArcGIS API for JavaScript Template Vue Application
 
-**Note:** The Python scripts for this web application were developed using a virtual Python environment (pipenv) for Python version control. Although this is not necessary to install this project, please do ensure all Python scripts are run with Python3 to avoid any errors.
+## Usage
 
-Install Python modules (after installing pip):
-```
-pipenv install
-```
-If you're having difficulties, install these packages:
-```
-pip3 install pymarc
-pip3 install requests
-```
-Install npm packages:
-```
-npm install sqlite3
-npm install
+This application is written in [TypeScript](http://www.typescriptlang.org/) and utilizes the [`@arcgis/webpack-plugin`](https://github.com/Esri/arcgis-webpack-plugin) with [Vue](https://vuejs.org/).
+
+You can develop, test, and build the application using various commands.
+
+Run the application in development mode with a local development server.
+```sh
+npm start
 ```
 
-After acquiring the ```.mrc``` and ```.csv``` data files, rename them ```fortunoff.mrc``` and ```path_data.csv```, respectively. Places these files into a folder named ```data``` in the scripts folder.
+Run the unit tests for the application. Unit tests are written with [Intern](https://theintern.io/).
+```sh
+npm test
+```
 
-Sample path data available here:
-https://docs.google.com/spreadsheets/d/1BdhQ04tYE5m2QmQXM2G1Oxm4L89jjgkSE7C__Wb7C-c/edit?usp=sharing 
+Build the application for deployment.
+```sh
+npm run build
+```
 
-Run
-```Python ./scripts/database.py```
-to create the database file, create the necessary tables, and populate the database with data from the .mrc file.
+Run a production build of the application, but serve it up locally to see how the built app will behave.
+```sh
+npm run serve
+```
 
-Next, run
-```Python ./scripts/csvData.py```
-to populate the database with the places and paths data from the .csv file. This will take a bit (set a time for 4 minutes and let it run) as the API requests can take some time. 
-
-The ```resetdb.py``` script is also available to delete all data from the database while maintaining the overall schema.
-
-Run
-```node server```
-and direct your browser to ```http://localhost:8080/``` to view the web application
+Use `npm run serve` to full test that Service Workers are working correctly with `webpack-dev-server` self signed certifcates. Refer to [this article](https://deanhume.com/testing-service-workers-locally-with-self-signed-certificates/) on how to run Chrome with proper flags enabled for development purposes.
