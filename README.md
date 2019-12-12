@@ -34,4 +34,6 @@ The ```resetdb.py``` script is also available to delete all data from the databa
 
 Run
 ```node server```
-and direct your browser to ```http://localhost:8080/``` to view the web application
+and the server should run on ```https://localhost:3000```
+
+Then enter the ```arcgis-vue-app``` and run ```npm start```. Redirect your browser to ```https://localhost:8080```, or the server indicated in the terminal to view the web application.
