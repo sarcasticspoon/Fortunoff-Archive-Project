@@ -1,7 +1,15 @@
 let express = require('express');
 let sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
 let app = express();
-const port = 8080;
+const port = 3000;
+
+app.use(cors());
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 
 // Serve up the original html and js files.
 app.get('/',
@@ -26,9 +34,9 @@ app.get('/search',
             lastInitial = params["last"].substring(0, 1);
         }
 
-        let db = new sqlite3.Database(__dirname + "/fortunoff.db");
+        let db = new sqlite3.Database(__dirname + "/scripts/fortunoff.db");
 
-        let sql = `SELECT DISTINCT title, path_index, latitude, longitude
+        let sql = `SELECT DISTINCT title, summary, path_index, latitude, longitude
                     FROM testimonies, agents, paths, places
                     WHERE testimonies.rowid = agents.id
                     AND testimonies.rowid = paths.id
@@ -53,6 +61,7 @@ app.get('/search',
                     //console.log(count);
                     currTitle = row.title;
                     rawData[count].push(row.title);
+                    rawData[count].push(row.summary);
                     //console.log(rawData);
                 }
                 else {
